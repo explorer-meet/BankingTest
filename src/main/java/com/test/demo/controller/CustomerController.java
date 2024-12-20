@@ -2,7 +2,6 @@ package com.test.demo.controller;
 
 import com.test.demo.model.Customer;
 import com.test.demo.service.CustomerService;
-import jakarta.websocket.server.PathParam;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/customer")
+@RestController
+@RequestMapping("/api/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -26,8 +26,8 @@ public class CustomerController {
 
     @GetMapping("/{id}")
     @SneakyThrows
-    public ResponseEntity<Customer> getCustomer(@RequestParam Long customerID){
-        return new ResponseEntity<>(customerService.getCustomer(customerID), HttpStatus.OK);
+    public ResponseEntity<Customer> getCustomer(@PathVariable Long id){
+        return new ResponseEntity<>(customerService.getCustomer(id), HttpStatus.OK);
     }
 
     @GetMapping("/byBalance")

@@ -2,24 +2,21 @@ package com.test.demo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "customer")
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "email")
     private String email;
+    private String phoneNumber;
 
-    @Column(name = "mobileNumber")
-    private String mobileNumber;
-
-    @OneToOne(mappedBy = "accountId")
-    private BankAccount account;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bank_account_id", referencedColumnName = "id")
+    private BankAccount bankAccount;
 
 }

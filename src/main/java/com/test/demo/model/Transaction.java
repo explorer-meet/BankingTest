@@ -5,23 +5,20 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "transaction")
 public class Transaction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "transactionDate")
     private LocalDate transactionDate;
+    private Double amount;
 
-    @Column(name = "amount")
-    private Long amount;
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
 
-    @Column(name = "transactionType")
-    private String transactionType;
-
-   /* @ManyToOne(cascade = CascadeType.ALL)
-    private BankAccount bankAccount;*/
+    @ManyToOne
+    @JoinColumn(name = "account_id", nullable = false)
+    private BankAccount bankAccount;
 
 }
